@@ -44,9 +44,11 @@ public class StudentDAO {
 				PreparedStatement pstmt = connection.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery();)
 			{
+			boolean isAvaliable = false;
 			while(rs.next()) {
 				System.out.println("{ Name: " + rs.getString("name") + " , Id: " + rs.getInt("id") + " , Age: " + rs.getInt("age") + " , Department: " + rs.getString("department") + " , Marks: " + rs.getInt("marks") + " }");
-			}
+				isAvaliable = true;
+			} if(!isAvaliable) System.out.println("No Student Found");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -73,14 +75,14 @@ public class StudentDAO {
 	}
 	
 	// ========================================================== UPDATE METHOD ==========================================================
-	public void updateStudent(Student student) {
+	public void updateStudent(Student student,int id) {
 		String sql = "UPDATE students SET name = ?, age = ?, department = ?, marks = ? WHERE id = ?";
 		try(PreparedStatement pstmt = connection.prepareStatement(sql);) {
 			pstmt.setString(1, student.getName());
 			pstmt.setInt(2, student.getAge());
 			pstmt.setString(3, student.getDepartment());
 			pstmt.setInt(4, student.getMarks());
-			pstmt.setInt(5, student.getId());
+			pstmt.setInt(5, id);
 			int rowsAffected = pstmt.executeUpdate();
 			if(rowsAffected > 0) {
 				System.out.println("Student Data Updated");

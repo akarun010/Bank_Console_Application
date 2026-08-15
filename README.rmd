@@ -1,0 +1,118 @@
+# Student Management System
+
+A console-based Student Management System built using Java, JDBC, Maven, and MySQL. This application allows users to perform CRUD (Create, Read, Update, Delete) operations on student records stored in a MySQL database.
+
+## Features
+
+- Add a new student
+- View all students
+- Search student by ID
+- Update student details
+- Delete student
+- Input validation
+- Exception handling
+- MySQL database integration using JDBC
+
+## Technologies Used
+
+- Java
+- JDBC
+- MySQL
+- Maven
+- Git & GitHub
+- Eclipse IDE
+
+## Project Structure
+
+```
+src/main/java
+│
+├── dao
+│   └── StudentDAO.java
+│
+├── model
+│   └── Student.java
+│
+├── service
+│   └── StudentService.java
+│
+├── util
+│   └── DBConnection.java
+│
+└── main
+    └── Main.java
+```
+
+## Database Schema
+
+Database Name:
+
+```
+student_management
+```
+
+Table:
+
+```sql
+CREATE TABLE students (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    age INT,
+    department VARCHAR(100),
+    marks INT
+);
+```
+
+## How to Run
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/<your-username>/<your-repository>.git
+```
+
+2. Open the project in Eclipse or any Java IDE.
+
+3. Create the MySQL database and table.
+
+4. Update your database credentials in:
+
+```
+DBConnection.java
+```
+
+5. Run
+
+```
+Main.java
+```
+
+## Sample Menu
+
+```
+===== Student Management System =====
+
+1. Add Student
+2. View Students
+3. Search Student
+4. Update Student
+5. Delete Student
+6. Exit
+```
+
+## Learning Outcomes
+
+This project helped me practice:
+
+- Object-Oriented Programming
+- Exception Handling
+- JDBC
+- MySQL CRUD Operations
+- PreparedStatement
+- Maven
+- Git & GitHub
+- Layered Architecture (Model, DAO, Service)
+
+## Author
+
+Arun

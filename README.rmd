@@ -1,0 +1,164 @@
+# 🏦 Bank Management System
+
+A console-based Bank Management System built using **Core Java**, **JDBC**, **MySQL**, **Maven**, and **Git**. This project demonstrates object-oriented programming, JDBC CRUD operations, database relationships, exception handling, and layered architecture.
+
+---
+
+## 🚀 Features
+
+### 👤 Customer Management
+- Add Customer
+- View All Customers
+- Search Customer by ID
+- Update Customer Details
+- Delete Customer
+
+### 💳 Account Management
+- Create Bank Account
+- View Account Details
+- Close Account
+
+### 💰 Banking Operations
+- Deposit Money
+- Withdraw Money
+- Transfer Money Between Accounts
+- Check Account Balance
+
+### 📄 Transaction Management
+- View Transaction History
+- View Recent Transactions
+
+---
+
+## 🛠 Technologies Used
+
+- Java
+- JDBC
+- MySQL
+- Maven
+- Git
+- Eclipse IDE
+
+---
+
+## 📂 Project Structure
+
+```
+src
+│
+├── main
+│   ├── java
+│   │   ├── dao
+│   │   ├── main
+│   │   ├── model
+│   │   ├── service
+│   │   └── util
+│   │
+│   └── resources
+│
+└── pom.xml
+```
+
+---
+
+## 🗄 Database Tables
+
+### Customers
+
+| Column | Type |
+|---------|------|
+| customer_id | INT |
+| name | VARCHAR |
+| age | INT |
+| phone | VARCHAR |
+| address | VARCHAR |
+
+### Accounts
+
+| Column | Type |
+|---------|------|
+| account_number | INT |
+| customer_id | INT |
+| account_type | VARCHAR |
+| balance | DECIMAL |
+
+### Transactions
+
+| Column | Type |
+|---------|------|
+| transaction_id | INT |
+| account_number | INT |
+| transaction_type | VARCHAR |
+| amount | DECIMAL |
+| transaction_date | DATETIME |
+
+---
+
+## 📋 Console Menu
+
+```
+========= BANK MANAGEMENT SYSTEM =========
+
+1. Create Customer
+2. View Customers
+3. Search Customer
+4. Update Customer
+5. Delete Customer
+
+6. Create Account
+7. View Account
+8. Deposit Money
+9. Withdraw Money
+10. Transfer Money
+11. Check Balance
+12. Transaction History
+
+13. Exit
+```
+
+---
+
+## ✅ Concepts Practiced
+
+- Object-Oriented Programming (OOP)
+- Encapsulation
+- Constructors
+- Exception Handling
+- Input Validation
+- JDBC CRUD Operations
+- PreparedStatement
+- ResultSet
+- Database Transactions
+- MySQL Foreign Keys
+- Layered Architecture
+- Maven Project Management
+- Git Version Control
+
+---
+
+## 📌 Future Improvements
+
+- Login Authentication
+- Password Encryption
+- Interest Calculation
+- Fixed Deposit Accounts
+- Loan Management
+- Mini Statement
+- Export Transactions to PDF
+- JUnit Testing
+- Logging Framework
+- Spring Boot REST API
+
+---
+
+## 👨‍💻 Author
+
+**Arun Kumar**
+
+GitHub: https://github.com/akarun010
+
+---
+
+## 📄 License
+
+This project is created for learning purposes.

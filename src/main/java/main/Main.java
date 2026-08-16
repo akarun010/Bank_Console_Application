@@ -1,10 +1,12 @@
 package main;
 
+import service.BankServices;
+
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		BankServices bankService = new BankServices();
+		bankService.start();
 	}
 
 }

@@ -1,0 +1,109 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import model.Customers;
+import util.DBConnection;
+
+public class CustomersDAO {
+		DBConnection dbConnection = new DBConnection();
+		Connection connection = dbConnection.getConnection();
+		//=============================================== ADD CUSTOMER ===========================================
+		public void addCustomer(Customers customers) {
+			String sql = "insert into Customers(customer_id, name, age, phone, address) values(?,?,?,?,?)";
+			try(PreparedStatement preparedStatement = connection.prepareStatement(sql);) 
+			{
+				preparedStatement.setInt(1, customers.getCustomerID());
+				preparedStatement.setString(2, customers.getName());
+				preparedStatement.setInt(3, customers.getage());
+				preparedStatement.setInt(4, customers.getPhone());
+				preparedStatement.setString(5, customers.getAddress());
+				
+				int isAdded = preparedStatement.executeUpdate();
+				
+				if(isAdded > 0) {
+					System.out.println("New Customer Added");
+				} else {
+					System.out.println("Could'nt Add Customer");
+				}
+			} catch (SQLException e) {
+				System.err.println("Some Problem Occured In Database");
+			}
+		}
+		
+		//=============================================== VIEW CUSTOMERS ===========================================
+		public void viewCustomers() {
+			String sql = "select * from Customers";
+			try(
+					PreparedStatement preparedStatement = connection.prepareStatement(sql);
+					ResultSet rs = preparedStatement.executeQuery();  ) 
+			{
+				boolean isAvaliable = false;
+				while(rs.next()) {
+					isAvaliable = true;
+					System.out.println(rs.toString());
+				} if(!isAvaliable) {
+					System.out.println("No Customer Found");
+				}
+			} catch(SQLException e) {
+				System.err.println("Some Problem Occured In Database");
+			}
+		}
+	
+		//=============================================== SEARCH CUSTOMER ===========================================
+		public void searchCustomer(int id) {
+			String sql = "select * from Customers where id = ?";
+			try(PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+				preparedStatement.setInt(5, id);
+				try(ResultSet rs = preparedStatement.executeQuery()){
+					if(rs.next()) {
+						System.out.println(rs.toString());
+					} else {
+						System.out.println("No Customer Found");
+					}
+				}
+			}  catch(SQLException e) {
+				System.err.println("Some Problem Occured In Database");
+			}	
+		}
+		
+		//=============================================== UPDATE CUSTOMER ===========================================
+		public void updateCustomer(Customers customers) {
+			String sql = "update customers set name = ?, age = ?, phone = ?, address = ? where id = ?";
+			try(PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+				preparedStatement.setString(1, customers.getName());
+				preparedStatement.setInt(2, customers.getage());
+				preparedStatement.setInt(3, customers.getPhone());
+				preparedStatement.setString(4, customers.getAddress());
+				preparedStatement.setInt(5, customers.getCustomerID());
+				int isUpdated = preparedStatement.executeUpdate();
+				if(isUpdated > 0) {
+					System.out.println("Customer Data Updated");
+				} else {
+					System.out.println("No Customer Found");
+				}
+			}  catch(SQLException e) {
+				System.err.println("Some Problem Occured In Database");
+			}	
+		}
+		
+		
+		//=============================================== DELETE CUSTOMER ===========================================
+		public void deleteCustomer(int id) {
+			String sql = "delete from customers where id = ?";
+			try(PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+				preparedStatement.setInt(1, id);
+				int isdeleted = preparedStatement.executeUpdate();
+				if(isdeleted > 0) {
+					System.out.println("Customer Data Deleted");
+				} else {
+					System.out.println("No Customer Found");
+				}
+			}  catch(SQLException e) {
+				System.err.println("Some Problem Occured In Database");
+			}	
+		}
+}

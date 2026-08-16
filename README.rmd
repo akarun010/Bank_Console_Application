@@ -153,7 +153,7 @@ src
 
 ## 👨‍💻 Author
 
-**Arun Kumar S**
+**Arunkumar S**
 
 GitHub: https://github.com/akarun010
 

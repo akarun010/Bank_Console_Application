@@ -22,7 +22,7 @@ A console-based Bank Management System built using **Core Java**, **JDBC**, **My
 - Deposit Money
 - Withdraw Money
 - Transfer Money Between Accounts
-- Check Account Balance
+- Check Account Balance 
 
 ### 📄 Transaction Management
 - View Transaction History

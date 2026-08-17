@@ -19,7 +19,7 @@ public class CustomersDAO {
 				preparedStatement.setInt(1, customers.getCustomerID());
 				preparedStatement.setString(2, customers.getName());
 				preparedStatement.setInt(3, customers.getage());
-				preparedStatement.setInt(4, customers.getPhone());
+				preparedStatement.setString(4, customers.getPhone());
 				preparedStatement.setString(5, customers.getAddress());
 				
 				int isAdded = preparedStatement.executeUpdate();
@@ -44,7 +44,13 @@ public class CustomersDAO {
 				boolean isAvaliable = false;
 				while(rs.next()) {
 					isAvaliable = true;
-					System.out.println(rs.toString());
+					int id = rs.getInt("customer_id");
+		            String name = rs.getString("name");
+		            int age = rs.getInt("age");
+		            String phone = rs.getString("phone");
+		            String address = rs.getString("address");
+		            Customers customers = new Customers(id, name, age, phone, address);
+					System.out.println(customers.toString());
 				} if(!isAvaliable) {
 					System.out.println("No Customer Found");
 				}
@@ -54,13 +60,19 @@ public class CustomersDAO {
 		}
 	
 		//=============================================== SEARCH CUSTOMER ===========================================
-		public void searchCustomer(int id) {
-			String sql = "select * from Customers where id = ?";
+		public void searchCustomer(int cusId) {
+			String sql = "select * from Customers where customer_id = ?";
 			try(PreparedStatement preparedStatement = connection.prepareStatement(sql);){
-				preparedStatement.setInt(5, id);
+				preparedStatement.setInt(1, cusId);
 				try(ResultSet rs = preparedStatement.executeQuery()){
 					if(rs.next()) {
-						System.out.println(rs.toString());
+						int id = rs.getInt("customer_id");
+			            String name = rs.getString("name");
+			            int age = rs.getInt("age");
+			            String phone = rs.getString("phone");
+			            String address = rs.getString("address");
+			            Customers customers = new Customers(id, name, age, phone, address);
+						System.out.println(customers.toString());
 					} else {
 						System.out.println("No Customer Found");
 					}
@@ -76,7 +88,7 @@ public class CustomersDAO {
 			try(PreparedStatement preparedStatement = connection.prepareStatement(sql);){
 				preparedStatement.setString(1, customers.getName());
 				preparedStatement.setInt(2, customers.getage());
-				preparedStatement.setInt(3, customers.getPhone());
+				preparedStatement.setString(3, customers.getPhone());
 				preparedStatement.setString(4, customers.getAddress());
 				preparedStatement.setInt(5, customers.getCustomerID());
 				int isUpdated = preparedStatement.executeUpdate();

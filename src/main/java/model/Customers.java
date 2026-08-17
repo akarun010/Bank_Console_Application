@@ -5,11 +5,11 @@ public class Customers {
 	private int customer_id;
 	private String name;
 	private int age;
-	private int phone;
+	private String phone;
 	private String address;
 	
 	//=================================================== CONSTRACTORS ===================================================
-	public Customers(int customer_id,String name,int age,int phone,String address) {
+	public Customers(int customer_id,String name,int age,String phone,String address) {
 		this.name = name;
 		this.customer_id = customer_id;
 		this.age = age;
@@ -24,7 +24,7 @@ public class Customers {
 	}
 	
 	//=================================================== GETTERS ===================================================
-	public int getPhone() {
+	public String getPhone() {
 		return this.phone;
 	}
 	public String getAddress() {
@@ -52,7 +52,7 @@ public class Customers {
 	public void setCustomerID(int customer_id) {
 		this.customer_id = customer_id;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 }

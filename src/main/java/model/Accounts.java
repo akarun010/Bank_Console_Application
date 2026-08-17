@@ -9,6 +9,10 @@ public class Accounts {
 	
 	//=================================================== CONSTRACTORS ===================================================
 	public Accounts(int account_number,int customer_id,String account_type,int balance) {
+		if(balance <= 0) {
+			System.out.println("Balance Can't Be Less Than Or Equal To 0..");
+			return;
+		}
 		this.account_number = account_number;
 		this.customer_id = customer_id;
 		this.account_type = account_type;

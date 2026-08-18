@@ -35,7 +35,7 @@ A console-based Bank Management System built using **Core Java**, **JDBC**, **My
 - Java
 - JDBC
 - MySQL
-- Maven
+- Maven 
 - Git
 - Eclipse IDE 
 

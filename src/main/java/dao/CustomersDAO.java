@@ -18,7 +18,7 @@ public class CustomersDAO {
 			{
 				preparedStatement.setInt(1, customers.getCustomerID());
 				preparedStatement.setString(2, customers.getName());
-				preparedStatement.setInt(3, customers.getage());
+				preparedStatement.setInt(3, customers.getAge());
 				preparedStatement.setString(4, customers.getPhone());
 				preparedStatement.setString(5, customers.getAddress());
 				
@@ -30,7 +30,7 @@ public class CustomersDAO {
 					System.out.println("Could'nt Add Customer");
 				}
 			} catch (SQLException e) {
-				System.err.println("Some Problem Occured In Database");
+				System.err.println("Database error occurred: " + e.getMessage());
 			}
 		}
 		
@@ -55,7 +55,7 @@ public class CustomersDAO {
 					System.out.println("No Customer Found");
 				}
 			} catch(SQLException e) {
-				System.err.println("Some Problem Occured In Database");
+				System.err.println("Database error occurred: " + e.getMessage());
 			}
 		}
 	
@@ -78,16 +78,16 @@ public class CustomersDAO {
 					}
 				}
 			}  catch(SQLException e) {
-				System.err.println("Some Problem Occured In Database");
+				System.err.println("Database error occurred: " + e.getMessage());
 			}	
 		}
 		
 		//=============================================== UPDATE CUSTOMER ===========================================
 		public void updateCustomer(Customers customers) {
-			String sql = "update customers set name = ?, age = ?, phone = ?, address = ? where id = ?";
-			try(PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+			String sql = "update customers set name = ?, age = ?, phone = ?, address = ? where customer_id = ?";
+			try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 				preparedStatement.setString(1, customers.getName());
-				preparedStatement.setInt(2, customers.getage());
+				preparedStatement.setInt(2, customers.getAge());
 				preparedStatement.setString(3, customers.getPhone());
 				preparedStatement.setString(4, customers.getAddress());
 				preparedStatement.setInt(5, customers.getCustomerID());
@@ -98,24 +98,30 @@ public class CustomersDAO {
 					System.out.println("No Customer Found");
 				}
 			}  catch(SQLException e) {
-				System.err.println("Some Problem Occured In Database");
+				System.err.println("Database error occurred: " + e.getMessage());
 			}	
 		}
 		
 		
 		//=============================================== DELETE CUSTOMER ===========================================
 		public void deleteCustomer(int id) {
-			String sql = "delete from customers where id = ?";
-			try(PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+			String sql = "delete from customers where customer_id = ?";
+			String sql2 = "delete from accounts where customer_id = ?";
+			try(
+					PreparedStatement preparedStatement = connection.prepareStatement(sql);
+					PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
+					){
+				preparedStatement2.setInt(1, id);
+				int isdeleted = preparedStatement2.executeUpdate();
 				preparedStatement.setInt(1, id);
-				int isdeleted = preparedStatement.executeUpdate();
-				if(isdeleted > 0) {
+				int isdeleted2 = preparedStatement.executeUpdate();
+				if(isdeleted > 0 && isdeleted2 > 0) {
 					System.out.println("Customer Data Deleted");
 				} else {
 					System.out.println("No Customer Found");
 				}
 			}  catch(SQLException e) {
-				System.err.println("Some Problem Occured In Database");
+				System.err.println("Database error occurred: " + e.getMessage());
 			}	
 		}
 }

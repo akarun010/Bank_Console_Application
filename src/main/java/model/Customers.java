@@ -36,7 +36,7 @@ public class Customers {
 	public int getCustomerID() {
 		return this.customer_id;
 	}
-	public int getage() {
+	public int getAge() {
 		return this.age;
 	}
 	//=================================================== SETTERS ===================================================

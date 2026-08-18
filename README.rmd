@@ -52,7 +52,7 @@ src
 │   │   ├── main
 │   │   ├── model
 │   │   ├── service
-│   │   └── util
+│   │   └── util 
 │   │
 │   └── resources
 │

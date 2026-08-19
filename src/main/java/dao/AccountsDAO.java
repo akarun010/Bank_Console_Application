@@ -63,6 +63,23 @@ public class AccountsDAO {
 		}
 	}
 	
+	//======================================= CHECK BALANCE ============================================
+	public void checkBalance(int id) {
+		String sql = "select balance from accounts where account_number = ?";
+		try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+			preparedStatement.setInt(1, id);
+			try(ResultSet rs = preparedStatement.executeQuery()){
+				if(rs.next()) {
+					System.out.println("The Balance Amount Is: " + rs.getInt("balance"));
+				} else {
+					System.out.println("Account Not Found");
+				}
+			}
+		} catch (SQLException e) {
+			System.err.println("Database error occurred: " + e.getMessage());
+		}
+	}
+	
 	
 	//======================================= CLOSE ACCOUNT ==============================================
 	public void closeAccount(int id) {

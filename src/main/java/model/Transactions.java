@@ -1,20 +1,17 @@
 package model;
 
-import java.sql.Date;
-
 public class Transactions {
 	//=================================================== FIELDS ===================================================
 	private int transaction_id;
 	private int account_number;
 	private String transaction_type;
 	private int amount;
-	private Date date;
+	private String date;
 	
 	//=================================================== CONSTRACTORS ===================================================
-	public Transactions(int transaction_id,int account_number,String transaction_type ,int amount,Date date) {
+	public Transactions(int transaction_id,int account_number,int amount,String date) {
 		this.transaction_id = transaction_id;
 		this.account_number = account_number;
-		this.transaction_type = transaction_type;
 		this.amount = amount;
 		this.date = date;
 	}
@@ -38,7 +35,7 @@ public class Transactions {
 	public int getAmount() {
 		return this.amount;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return this.date;
 	}
 	//=================================================== SETTERS ===================================================
@@ -54,7 +51,7 @@ public class Transactions {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public void setPhone(Date date) {
+	public void setPhone(String date) {
 		this.date = date;
 	}
 }

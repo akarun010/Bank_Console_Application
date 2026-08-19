@@ -1,12 +1,16 @@
 package service;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import dao.AccountsDAO;
 import dao.CustomersDAO;
+import dao.TransactionsDAO;
 import model.Accounts;
 import model.Customers;
+import model.Transactions;
 
 public class BankServices {
 	public int toInt(Scanner scanner,String prompt) {
@@ -142,6 +146,33 @@ public class BankServices {
 				System.out.println();
 			}
 
+			//================================================== DEPOSIT MONEY ======================================================
+			else if(choice == 8) {
+				System.out.println();
+				System.out.println("//========================= DEPOSIT MONEY =========================");
+				System.out.println();
+				int transaction_id = toInt(scanner, "Enter The Transactions ID You Want: ");
+				int acc_no = toInt(scanner, "Enter The Account Number You Like To Deposit Money: ");
+				int amount = toInt(scanner, "Enter The Amount You Want Deposit: ");
+				Date date = new Date();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				String mysqlDate = formatter.format(date);
+				Transactions transactions = new Transactions(transaction_id, acc_no, amount, mysqlDate);
+				TransactionsDAO transactionsDAO = new TransactionsDAO();
+				transactionsDAO.depositMoney(transactions);
+			}
+			
+			//================================================== VIEW BALANCE ======================================================
+			else if(choice == 11) {
+				System.out.println();
+				System.out.println("//========================= VIEW BALANCE =========================");
+				System.out.println();
+				int id = toInt(scanner, "Enter The Account Number You Want To Check Balance : ");
+				AccountsDAO accountsDAO = new AccountsDAO();
+				accountsDAO.checkBalance(id);
+				System.out.println();
+			}
+			
 			//================================================== CLOSE ACCOUNT ======================================================
 			else if(choice == 12) {
 				System.out.println();

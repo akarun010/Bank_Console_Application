@@ -75,7 +75,7 @@ public class CustomersDAO {
 						System.out.println(customers.toString());
 					} else {
 						System.out.println("No Customer Found");
-					}
+					} 
 				}
 			}  catch(SQLException e) {
 				System.err.println("Database error occurred: " + e.getMessage());

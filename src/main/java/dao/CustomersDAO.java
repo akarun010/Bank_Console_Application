@@ -123,5 +123,5 @@ public class CustomersDAO {
 			}  catch(SQLException e) {
 				System.err.println("Database error occurred: " + e.getMessage());
 			}	
-		}
+		} 
 }

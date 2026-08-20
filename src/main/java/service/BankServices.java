@@ -162,6 +162,42 @@ public class BankServices {
 				transactionsDAO.depositMoney(transactions);
 			}
 			
+			//================================================== WITHDRAW MONEY ======================================================
+			else if(choice == 9) {
+				System.out.println();
+				System.out.println("//========================= WITHDRAW MONEY =========================");
+				System.out.println();
+				int transaction_id = toInt(scanner, "Enter The Transactions ID You Want: ");
+				int acc_no = toInt(scanner, "Enter The Account Number You Like To Withdraw Money: ");
+				int amount = toInt(scanner, "Enter The Amount You Want Withdraw: ");
+				Date date = new Date();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				String mysqlDate = formatter.format(date);
+				Transactions transactions = new Transactions(transaction_id, acc_no, amount, mysqlDate);
+				TransactionsDAO transactionsDAO = new TransactionsDAO();
+				transactionsDAO.withdrawMoney(transactions);
+			}
+			
+			//================================================== TRANSFER MONEY ======================================================
+			else if(choice == 10) {
+				System.out.println();
+				System.out.println("//========================= TRANSFER	 MONEY =========================");
+				System.out.println();
+				int transaction_id = toInt(scanner, "Enter The Transactions ID You Want: ");
+				int acc_no = toInt(scanner, "Enter The Account Number You Have: ");
+				int amount = toInt(scanner, "Enter The Amount You Want Transfer: ");
+				Date date = new Date();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				String mysqlDate = formatter.format(date);
+				Transactions transactions = new Transactions(transaction_id, acc_no, amount, mysqlDate);
+				int transaction_id2 = toInt(scanner, "Enter The Transactions ID You Want To Transfer Money: ");
+				int acc_no2 = toInt(scanner, "Enter The Account Number You Like To Transfer Money: ");
+				String mysqlDate2 = formatter.format(date);
+				Transactions transactions2 = new Transactions(transaction_id2, acc_no2, 0, mysqlDate2);
+				TransactionsDAO transactionsDAO = new TransactionsDAO();
+				transactionsDAO.transferMoney(transactions, transactions2);
+			}
+			
 			//================================================== VIEW BALANCE ======================================================
 			else if(choice == 11) {
 				System.out.println();

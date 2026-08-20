@@ -17,7 +17,6 @@ public class TransactionsDAO {
 		String sql = "insert into transactions(transaction_id,account_number,transaction_type,amount,date) values(?,?,'Deposit',?,?)";
 		String sql2 = "update accounts set balance = balance  + ? where account_number = ?";
 		try(Connection connection = dbConnection.getConnection()){
-			connection.setAutoCommit(false);
 			try(PreparedStatement preparedStatement3 = connection.prepareStatement(sql3)){
 				preparedStatement3.setInt(1, transactions.getAccountNumber());
 				ResultSet rs = preparedStatement3.executeQuery();
@@ -43,15 +42,6 @@ public class TransactionsDAO {
 			} else {
 				System.out.println("Couldn't Find The Account");
 			}
-				connection.commit();
-		} catch(SQLException e) {
-			try {
-				connection.rollback();
-			} catch(SQLException e1) {
-				System.err.println("Database error occurred: " + e1.getMessage());
-			} finally {
-				connection.setAutoCommit(true);
-			}
 		}
 		} catch (SQLException e) {
 			System.err.println("Database error occurred: " + e.getMessage());
@@ -64,7 +54,6 @@ public class TransactionsDAO {
 		String sql = "insert into transactions(transaction_id,account_number,transaction_type,amount,date) values(?,?,'Withdraw',?,?)";
 		String sql2 = "update accounts set balance = balance  - ? where account_number = ?";
 		try(Connection connection = dbConnection.getConnection()){
-			connection.setAutoCommit(false);
 			try(PreparedStatement preparedStatement3 = connection.prepareStatement(sql3)){
 				preparedStatement3.setInt(1, transactions.getAccountNumber());
 				ResultSet rs = preparedStatement3.executeQuery();
@@ -94,15 +83,6 @@ public class TransactionsDAO {
 					
 			} else {
 				System.out.println("Couldn't Find The Account");
-			}
-				connection.commit();
-		} catch(SQLException e) {
-			try {
-				connection.rollback();
-			} catch(SQLException e1) {
-				System.err.println("Database error occurred: " + e1.getMessage());
-			} finally {
-				connection.setAutoCommit(true);
 			}
 		}
 		} catch (SQLException e) {

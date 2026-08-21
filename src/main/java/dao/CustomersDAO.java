@@ -13,23 +13,33 @@ public class CustomersDAO {
 		Connection connection = dbConnection.getConnection();
 		//=============================================== ADD CUSTOMER ===========================================
 		public void addCustomer(Customers customers) {
+			String sql2 = "select * from Customers where customer_id = ?";
 			String sql = "insert into Customers(customer_id, name, age, phone, address) values(?,?,?,?,?)";
-			try(PreparedStatement preparedStatement = connection.prepareStatement(sql);) 
-			{
-				preparedStatement.setInt(1, customers.getCustomerID());
-				preparedStatement.setString(2, customers.getName());
-				preparedStatement.setInt(3, customers.getAge());
-				preparedStatement.setString(4, customers.getPhone());
-				preparedStatement.setString(5, customers.getAddress());
-				
-				int isAdded = preparedStatement.executeUpdate();
-				
-				if(isAdded > 0) {
-					System.out.println("New Customer Added");
+			try(PreparedStatement preparedStatement2 = connection.prepareStatement(sql2)){
+				preparedStatement2.setInt(1, customers.getCustomerID());
+				ResultSet rs = preparedStatement2.executeQuery();
+				if(rs.next()) {
+					System.out.println("User Already Exists With That Customer ID");
 				} else {
-					System.out.println("Could'nt Add Customer");
+					try(PreparedStatement preparedStatement = connection.prepareStatement(sql);) 
+					{
+						preparedStatement.setInt(1, customers.getCustomerID());
+						preparedStatement.setString(2, customers.getName());
+						preparedStatement.setInt(3, customers.getAge());
+						preparedStatement.setString(4, customers.getPhone());
+						preparedStatement.setString(5, customers.getAddress());
+						
+						int isAdded = preparedStatement.executeUpdate();
+						
+						if(isAdded > 0) {
+							System.out.println("New Customer Added");
+						} else {
+							System.out.println("Could'nt Add Customer");
+						}
+					} 
 				}
-			} catch (SQLException e) {
+			}
+			catch (SQLException e) {
 				System.err.println("Database error occurred: " + e.getMessage());
 			}
 		}

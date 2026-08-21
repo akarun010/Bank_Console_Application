@@ -13,37 +13,47 @@ public class TransactionsDAO {
 	
 	//======================================== DEPOSIT AMOUNT ================================================
 	public void depositMoney(Transactions transactions) {
+		String sql4 = "select * from transactions where transaction_id = ?";
 		String sql3 = "select account_number from accounts where account_number = ?";
 		String sql = "insert into transactions(transaction_id,account_number,transaction_type,amount,date) values(?,?,'Deposit',?,?)";
 		String sql2 = "update accounts set balance = balance  + ? where account_number = ?";
 		try(Connection connection = dbConnection.getConnection()){
-			try(PreparedStatement preparedStatement3 = connection.prepareStatement(sql3)){
-				preparedStatement3.setInt(1, transactions.getAccountNumber());
-				ResultSet rs = preparedStatement3.executeQuery();
-				if(rs.next()) {
-					try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-						preparedStatement.setInt(1, transactions.getTransactionID());
-						preparedStatement.setInt(2, transactions.getAccountNumber());
-						preparedStatement.setInt(3, transactions.getAmount());
-						preparedStatement.setString(4, transactions.getDate());
-						int  isDeposited = preparedStatement.executeUpdate();
-						int isDeposited2 = 0;
-						try(PreparedStatement preparedStatement2 = connection.prepareStatement(sql2)){
-							preparedStatement2.setInt(1, transactions.getAmount());
-							preparedStatement2.setInt(2, transactions.getAccountNumber());
-							isDeposited2 = preparedStatement2.executeUpdate();
+			try(PreparedStatement preparedStatement4 = connection.prepareStatement(sql4)){
+				preparedStatement4.setInt(1, transactions.getTransactionID());
+				ResultSet rs2 = preparedStatement4.executeQuery();
+				if(rs2.next()) {
+					System.out.println("Transaction ID Already Exists");
+				} else {
+					try(PreparedStatement preparedStatement3 = connection.prepareStatement(sql3)){
+						preparedStatement3.setInt(1, transactions.getAccountNumber());
+						ResultSet rs = preparedStatement3.executeQuery();
+						if(rs.next()) {
+							try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+								preparedStatement.setInt(1, transactions.getTransactionID());
+								preparedStatement.setInt(2, transactions.getAccountNumber());
+								preparedStatement.setInt(3, transactions.getAmount());
+								preparedStatement.setString(4, transactions.getDate());
+								int  isDeposited = preparedStatement.executeUpdate();
+								int isDeposited2 = 0;
+								try(PreparedStatement preparedStatement2 = connection.prepareStatement(sql2)){
+									preparedStatement2.setInt(1, transactions.getAmount());
+									preparedStatement2.setInt(2, transactions.getAccountNumber());
+									isDeposited2 = preparedStatement2.executeUpdate();
+								}
+								if(isDeposited > 0 && isDeposited2 > 0) {
+									System.out.println("Amount Deposited.....");
+								} else {
+									System.out.println("Amount Didn't Deposited....");
+								}
 						}
-						if(isDeposited > 0 && isDeposited2 > 0) {
-							System.out.println("Amount Deposited.....");
-						} else {
-							System.out.println("Amount Didn't Deposited....");
-						}
+					} else {
+						System.out.println("Couldn't Find The Account");
+					}
 				}
-			} else {
-				System.out.println("Couldn't Find The Account");
+				} 
+				}
 			}
-		}
-		} catch (SQLException e) {
+			catch (SQLException e) {
 			System.err.println("Database error occurred: " + e.getMessage());
 		}
 	}

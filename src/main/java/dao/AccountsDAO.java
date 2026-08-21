@@ -14,29 +14,39 @@ public class AccountsDAO {
 	
 	//======================================= CREATE ACCOUNT ==========================================
 	public void addAccount(Accounts account) {
+		String sql3 = "select * from Accounts where account_number = ?";
 		String sql = "insert into Accounts(account_number, customer_id, account_type, balance) values(?,?,?,?)";
 		String sql2 = "select customer_id from Customers where customer_id = ?";
 		int isAdded = 0;
-		try (PreparedStatement preparedStatement = connection.prepareStatement(sql2))
-		{
-			preparedStatement.setInt(1, account.getCustomerID());
-			try(ResultSet rs = preparedStatement.executeQuery()){
-				while(rs.next()) {
-					if(account.getCustomerID() == rs.getInt("customer_id")) {
-						try(PreparedStatement preparedStatement2 = connection.prepareStatement(sql)){
-							preparedStatement2.setInt(1, account.getAccountNumber());
-							preparedStatement2.setInt(2, account.getCustomerID());
-							preparedStatement2.setString(3, account.getAccountType());
-							preparedStatement2.setInt(4, account.getBalance());
-							isAdded = preparedStatement2.executeUpdate();
+		try(PreparedStatement preparedStatement3 = connection.prepareStatement(sql3)){
+			preparedStatement3.setInt(1, account.getAccountNumber());
+			ResultSet rs2 = preparedStatement3.executeQuery();
+			if(rs2.next()) {
+				System.out.println("User Already Exists With That Account Number");
+			} else {
+				try (PreparedStatement preparedStatement = connection.prepareStatement(sql2))
+				{
+					preparedStatement.setInt(1, account.getCustomerID());
+					try(ResultSet rs = preparedStatement.executeQuery()){
+						while(rs.next()) {
+							if(account.getCustomerID() == rs.getInt("customer_id")) {
+								try(PreparedStatement preparedStatement2 = connection.prepareStatement(sql)){
+									preparedStatement2.setInt(1, account.getAccountNumber());
+									preparedStatement2.setInt(2, account.getCustomerID());
+									preparedStatement2.setString(3, account.getAccountType());
+									preparedStatement2.setInt(4, account.getBalance());
+									isAdded = preparedStatement2.executeUpdate();
+								}
+							}
+						} if(isAdded > 0) System.out.println("New Account Created");
+						else {
+							System.out.println("Customer not found. \nPlease create a customer first.");
 						}
 					}
-				} if(isAdded > 0) System.out.println("New Account Created");
-				else {
-					System.out.println("Customer not found. \nPlease create a customer first.");
 				}
 			}
-		} catch (SQLException e) {
+			}
+		 catch (SQLException e) {
 			System.err.println("Database error occurred: " + e.getMessage());
 		}
 	}

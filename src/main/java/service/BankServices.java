@@ -27,6 +27,18 @@ public class BankServices {
 		}
 	}
 	
+	public String handlingSpace(Scanner scanner,String prompt) {
+		while(true) {
+			System.out.print(prompt);
+			String str = scanner.nextLine();
+			if(str.trim().isEmpty()) {
+				System.out.println("Invalid input. Please enter a valid character.");
+			} else {
+				return str;
+			} 
+		}
+	}
+	
 	public void start() {
 		int choice = 0;
 		Scanner scanner = new Scanner(System.in);
@@ -54,14 +66,11 @@ public class BankServices {
 				System.out.println();
 				System.out.println("//========================= CREATE CUSTOMER =========================");
 				System.out.println();
-				System.out.print("Enter Your Name: ");
-				String name = scanner.nextLine();
+				String name = handlingSpace(scanner, "Enter Your Name: ");
 				int customer_id = toInt(scanner, "Enter Your Customer ID: ");
 				int age = toInt(scanner, "Enter Your Age: ");
-				System.out.print("Enter Your Phone Number: ");
-				String phone = scanner.nextLine();
-				System.out.print("Enter Your Address: ");
-				String address = scanner.nextLine();
+				String phone = handlingSpace(scanner, "Enter Your Phone Number: ");
+				String address = handlingSpace(scanner, "Enter Your Address: ");
 				Customers customer = new Customers(customer_id, name, age, phone, address);
 				CustomersDAO customersDAO = new CustomersDAO();
 				customersDAO.addCustomer(customer);
@@ -95,13 +104,10 @@ public class BankServices {
 				System.out.println("//========================= UPDATE CUSTOMER =========================");
 				System.out.println();
 				int customer_id = toInt(scanner, "Enter The Customer ID You Want To Update: ");
-				System.out.print("Enter The New Name Of Customer: ");
-				String name = scanner.nextLine();
+				String name = handlingSpace(scanner,"Enter The New Name Of Customer: ");
 				int age = toInt(scanner, "Enter The New Age Of Customer: ");
-				System.out.print("Enter The New Phone Number Of Customer: ");
-				String phone = scanner.nextLine();
-				System.out.print("Enter The New Address Of Customer: ");
-				String address = scanner.nextLine();
+				String phone = handlingSpace(scanner, "Enter The New Phone Number Of Customer: ");
+				String address = handlingSpace(scanner, "\"Enter The New Address Of Customer: \"");
 				Customers customer = new Customers(customer_id, name, age, phone, address);
 				CustomersDAO customersDAO = new CustomersDAO();
 				customersDAO.updateCustomer(customer);
@@ -126,8 +132,7 @@ public class BankServices {
 				System.out.println();
 				int acc_no = toInt(scanner, "Enter The Account Number You Want: ");
 				int cus_id = toInt(scanner, "Enter Your Customer ID You Have: ");
-				System.out.print("Enter The Account Type: ");
-				String acc_type = scanner.nextLine();
+				String acc_type = handlingSpace(scanner, "Enter The Account Type: ");
 				int balance = toInt(scanner, "Enter Your Balance Amount: ");
 				Accounts account = new Accounts(acc_no, cus_id, acc_type, balance);
 				AccountsDAO accountsDAO = new AccountsDAO();

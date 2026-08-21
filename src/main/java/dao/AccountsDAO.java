@@ -94,7 +94,7 @@ public class AccountsDAO {
 	//======================================= CLOSE ACCOUNT ==============================================
 	public void closeAccount(int id) {
 		String sql = "select balance from accounts where account_number = ?";
-		String sql2 = "delete from accounts where id = ?";
+		String sql2 = "delete from accounts where account_number = ?";
 		try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 			preparedStatement.setInt(1, id);
 			try(ResultSet rs = preparedStatement.executeQuery()){

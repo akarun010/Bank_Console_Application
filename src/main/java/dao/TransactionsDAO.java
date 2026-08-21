@@ -109,6 +109,7 @@ public class TransactionsDAO {
 		String sql2 = "update accounts set balance = balance  - ? where account_number = ?";
 		String sql5 = "update accounts set balance = balance  + ? where account_number = ?";
 		try(Connection connection = dbConnection.getConnection()){
+			connection.setAutoCommit(false);
 			try(PreparedStatement preparedStatement3 = connection.prepareStatement(sql3)){
 				preparedStatement3.setInt(1, transactions.getAccountNumber());
 				ResultSet rs = preparedStatement3.executeQuery();
@@ -140,6 +141,7 @@ public class TransactionsDAO {
 											preparedStatement5.executeUpdate(); 
 										}
 									}
+									connection.commit();
 									if(isTransfered > 0 && isTransfered2 > 0) {
 										System.out.println("Amount Transfered.....");
 									} else {
